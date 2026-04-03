@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/mayanksharma/Desktop/Projects/FinFlow/frontend/src/app/layout.js"],"sourcesContent":["export const metadata = {\n  title: 'FinFlow',\n  description: 'Financial management application',\n};\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang=\"en\">\n      <body>{children}</body>\n    </html>\n  );\n}\n"],"names":["metadata","title","description","RootLayout","children","lang"],"mappings":";;;;;;;;AAAO,MAAMA,WAAW;IACtBC,OAAO;IACPC,aAAa;AACf;AAEe,SAASC,WAAW,EAAEC,QAAQ,EAAE;IAC7C,qBACE,mcAAC;QAAKC,MAAK;kBACT,cAAA,mcAAC;sBAAMD;;;;;;;;;;;AAGb"}},
-    {"offset": {"line": 40, "column": 0}, "map": {"version":3,"sources":["file:///Users/mayanksharma/Desktop/Projects/FinFlow/frontend/node_modules/.pnpm/next%4016.2.2_%40babel%2Bcore%407.29.0_babel-plugin-react-compiler%401.0.0_react-dom%4019.2.4_react%4019.2.4__react%4019.2.4/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-rsc']!.ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,4PACRC,QAAQ,CAAC,YAAY,CAAEC,kBAAkB","ignoreList":[0]}}]
-}

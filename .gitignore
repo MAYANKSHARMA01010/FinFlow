@@ -5,7 +5,7 @@ node_modules/
 pnpm-lock.yaml
 
 # Build artifacts
-/.next/
+.next/
 /out/
 /build/
 *.tsbuildinfo
