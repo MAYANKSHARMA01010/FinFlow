@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///Users/mayanksharma/Desktop/Projects/FinFlow/frontend/src/app/page.js"],"sourcesContent":["import Image from \"next/image\";\n\nexport default function Home() {\n  return (\n    <div className=\"flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black\">\n      Hello World\n    </div>\n  );\n}\n"],"names":["Home","className"],"mappings":";;;;;AAAA;;;AAEe,SAASA;IACtB,qBACE,mcAAC;QAAIC,WAAU;kBAAsF;;;;;;AAIzG"}}]
+}
