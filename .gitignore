@@ -46,3 +46,4 @@ ehthumbs.db
 .vercel
 
 backend/src/generated
+backend/prisma/seed.js
