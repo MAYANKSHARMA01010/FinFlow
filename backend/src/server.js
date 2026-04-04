@@ -5,6 +5,7 @@ const { successResponse } = require("./utils/apiResponse.js");
 const authRoutes = require("./routes/auth.routes.js");
 const userRoutes = require("./routes/user.routes.js");
 const recordRoutes = require("./routes/record.routes.js");
+const dashboardRoutes = require("./routes/dashboard.routes.js");
 require("dotenv").config();
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/records", recordRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/health", (req, res) => {
     return successResponse(res, "Backend is healthy", {
