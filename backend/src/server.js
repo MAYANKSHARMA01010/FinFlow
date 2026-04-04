@@ -1,3 +1,6 @@
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+
 const express = require("express");
 const corsMiddleware = require("./config/cors.js");
 const { prisma } = require("./config/prisma.js");
@@ -6,13 +9,18 @@ const authRoutes = require("./routes/auth.routes.js");
 const userRoutes = require("./routes/user.routes.js");
 const recordRoutes = require("./routes/record.routes.js");
 const dashboardRoutes = require("./routes/dashboard.routes.js");
-require("dotenv").config();
 
 const app = express();
 const PORT = process.env.SERVER_PORT;
 
 app.use(corsMiddleware);
 app.use(express.json());
+app.use((req, res, next) => {
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    res.set("Pragma", "no-cache");
+    res.set("Expires", "0");
+    next();
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);

@@ -9,7 +9,7 @@ const {
 async function summary(req, res, next) {
     try {
         const data = await getSummary();
-        return successResponse(res, "Dashboard summary", data);
+        return successResponse(res, "Dashboard summary", { data });
     } catch (error) {
         return next(error);
     }
@@ -18,7 +18,7 @@ async function summary(req, res, next) {
 async function categoryBreakdown(req, res, next) {
     try {
         const data = await getCategoryBreakdown();
-        return successResponse(res, "Category breakdown", { categories: data });
+        return successResponse(res, "Category breakdown", { data });
     } catch (error) {
         return next(error);
     }
@@ -27,7 +27,7 @@ async function categoryBreakdown(req, res, next) {
 async function monthlyTrends(req, res, next) {
     try {
         const data = await getMonthlyTrends();
-        return successResponse(res, "Monthly trends", { trends: data });
+        return successResponse(res, "Monthly trends", { data });
     } catch (error) {
         return next(error);
     }
@@ -37,7 +37,7 @@ async function recentActivity(req, res, next) {
     try {
         const limit = req.query.limit ? Number(req.query.limit) : 10;
         const data = await getRecentActivity(limit);
-        return successResponse(res, "Recent activity", { activities: data });
+        return successResponse(res, "Recent activity", { data });
     } catch (error) {
         return next(error);
     }

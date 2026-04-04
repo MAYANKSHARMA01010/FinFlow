@@ -71,7 +71,7 @@ async function loginUser(data) {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
         },
-        token: jwt.sign(tokenPayload, process.env.JWT_SESSION_SECRET, {
+        accessToken: jwt.sign(tokenPayload, process.env.JWT_SESSION_SECRET, {
             expiresIn: "7d",
         }),
         refreshToken: jwt.sign(tokenPayload, process.env.JWT_REFRESH_SECRET, {
@@ -119,7 +119,7 @@ async function refreshToken(token) {
             createdAt: user.createdAt,
             updatedAt: user.updatedAt,
         },
-        token: jwt.sign(tokenPayload, process.env.JWT_SESSION_SECRET, {
+        accessToken: jwt.sign(tokenPayload, process.env.JWT_SESSION_SECRET, {
             expiresIn: "7d",
         }),
         refreshToken: jwt.sign(tokenPayload, process.env.JWT_REFRESH_SECRET, {

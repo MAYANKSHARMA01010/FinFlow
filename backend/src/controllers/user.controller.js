@@ -2,6 +2,7 @@ const { ApiError } = require("../utils/apiError.js");
 const { successResponse } = require("../utils/apiResponse.js");
 const {
     getAllUsers,
+    createUser,
     getUserById,
     updateUserRole,
     updateUserStatus,
@@ -22,6 +23,15 @@ async function getUsers(req, res, next) {
     try {
         const users = await getAllUsers();
         return successResponse(res, "Users fetched", { users });
+    } catch (error) {
+        return next(error);
+    }
+}
+
+async function addUser(req, res, next) {
+    try {
+        const user = await createUser(req.body);
+        return successResponse(res, "User created", { user }, 201);
     } catch (error) {
         return next(error);
     }
@@ -69,6 +79,7 @@ async function removeUser(req, res, next) {
 
 module.exports = {
     getUsers,
+    addUser,
     getUser,
     patchUserRole,
     patchUserStatus,

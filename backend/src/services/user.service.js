@@ -1,5 +1,6 @@
 const { prisma } = require("../config/prisma.js");
 const { ApiError } = require("../utils/apiError.js");
+const { hashPassword } = require("../utils/hashPassword.js");
 
 const ALLOWED_ROLES = ["ADMIN", "ANALYST", "VIEWER"];
 
@@ -21,6 +22,37 @@ async function getAllUsers() {
             updatedAt: true,
         },
         orderBy: { createdAt: "desc" },
+    });
+}
+
+async function createUser(data) {
+    const existingUser = await prisma.user.findUnique({
+        where: { email: data.email },
+    });
+
+    if (existingUser) {
+        throw new ApiError(400, "Email already exists");
+    }
+
+    const hashedPassword = await hashPassword(data.password);
+
+    return prisma.user.create({
+        data: {
+            name: data.name,
+            email: data.email,
+            password: hashedPassword,
+            role: data.role || "VIEWER",
+            status: data.status || "ACTIVE",
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            role: true,
+            status: true,
+            createdAt: true,
+            updatedAt: true,
+        },
     });
 }
 
@@ -95,6 +127,7 @@ async function deleteUser(id) {
 
 module.exports = {
     getAllUsers,
+    createUser,
     getUserById,
     updateUserRole,
     updateUserStatus,

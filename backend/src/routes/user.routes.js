@@ -11,6 +11,15 @@ const roleSchema = z.object({
     role: z.enum(["ADMIN", "ANALYST", "VIEWER"]),
 });
 
+const createUserSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Valid email is required"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    role: z.enum(["ADMIN", "ANALYST", "VIEWER"]).optional(),
+    status: z.enum(["ACTIVE", "INACTIVE"]).optional(),
+});
+
+router.post("/", authMiddleware, authorize("ADMIN"), validate(createUserSchema), userController.addUser);
 router.get("/", authMiddleware, authorize("ADMIN"), userController.getUsers);
 router.get("/:id", authMiddleware, authorize("ADMIN"), userController.getUser);
 router.patch(
