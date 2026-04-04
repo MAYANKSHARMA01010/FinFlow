@@ -1,5 +1,6 @@
 const express = require("express");
 const corsMiddleware = require("./config/cors.js");
+const { prisma } = require("./config/prisma.js");
 const { successResponse } = require("./utils/apiResponse.js");
 const authRoutes = require("./routes/auth.routes.js");
 const userRoutes = require("./routes/user.routes.js");
@@ -19,6 +20,23 @@ app.get("/health", (req, res) => {
         service: "FinFlow Backend",
         timestamp: new Date().toISOString(),
     });
+});
+
+app.get("/health/db", async (req, res) => {
+    try {
+        await prisma.$queryRaw`SELECT 1`;
+
+        return successResponse(res, "Database is healthy", {
+            database: "reachable",
+            timestamp: new Date().toISOString(),
+        });
+    } catch (error) {
+        return res.status(503).json({
+            success: false,
+            message: "Database is unreachable",
+            errors: [error.message],
+        });
+    }
 });
 
 app.get("/", (req, res) => {
