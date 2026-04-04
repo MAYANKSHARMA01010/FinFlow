@@ -1,6 +1,7 @@
 const express = require("express");
 const corsMiddleware = require("./config/cors.js");
 const { successResponse } = require("./utils/apiResponse.js");
+const authRoutes = require("./routes/auth.routes.js");
 require("dotenv").config();
 
 const app = express();
@@ -8,6 +9,7 @@ const PORT = process.env.SERVER_PORT;
 
 app.use(corsMiddleware);
 app.use(express.json());
+app.use("/api/auth", authRoutes);
 
 app.get("/health", (req, res) => {
     return successResponse(res, "Backend is healthy", {
@@ -37,6 +39,16 @@ app.get("/health", (req, res) => {
 app.get("/", (req, res) => {
     return successResponse(res, "Backend running successfully", {
         service: "FinFlow Backend",
+    });
+});
+
+app.use((error, req, res, next) => {
+    const statusCode = error.statusCode || 500;
+
+    return res.status(statusCode).json({
+        success: false,
+        message: error.message || "Internal Server Error",
+        errors: error.errors || [],
     });
 });
 
