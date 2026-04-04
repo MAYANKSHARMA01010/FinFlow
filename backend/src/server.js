@@ -1,5 +1,6 @@
 const express = require("express");
 const corsMiddleware = require("./config/cors.js");
+const { successResponse } = require("./utils/apiResponse.js");
 require("dotenv").config();
 
 const app = express();
@@ -9,8 +10,7 @@ app.use(corsMiddleware);
 app.use(express.json());
 
 app.get("/health", (req, res) => {
-    res.status(200).json({
-        ok: true,
+    return successResponse(res, "Backend is healthy", {
         service: "FinFlow Backend",
         timestamp: new Date().toISOString(),
     });
@@ -35,7 +35,9 @@ app.get("/health", (req, res) => {
 // });
 
 app.get("/", (req, res) => {
-    res.status(200).send("<h1>Backend Running Successfully 🚀</h1>");
+    return successResponse(res, "Backend running successfully", {
+        service: "FinFlow Backend",
+    });
 });
 
 app.listen(PORT, () => {
