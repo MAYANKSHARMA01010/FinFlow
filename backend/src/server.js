@@ -2,6 +2,7 @@ const express = require("express");
 const corsMiddleware = require("./config/cors.js");
 const { successResponse } = require("./utils/apiResponse.js");
 const authRoutes = require("./routes/auth.routes.js");
+const userRoutes = require("./routes/user.routes.js");
 require("dotenv").config();
 
 const app = express();
@@ -9,7 +10,9 @@ const PORT = process.env.SERVER_PORT;
 
 app.use(corsMiddleware);
 app.use(express.json());
+
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 app.get("/health", (req, res) => {
     return successResponse(res, "Backend is healthy", {
@@ -17,24 +20,6 @@ app.get("/health", (req, res) => {
         timestamp: new Date().toISOString(),
     });
 });
-
-// app.get("/health/db", async (req, res) => {
-//     try {
-//         await executeDbCall("health.db", () => prisma.$queryRaw`SELECT 1`, 3000);
-//         return res.status(200).json({
-//             ok: true,
-//             database: "reachable",
-//             timestamp: new Date().toISOString(),
-//         });
-//     } catch (err) {
-//         return res.status(503).json({
-//             ok: false,
-//             database: "unreachable",
-//             reason: err?.message || "Database check failed",
-//             timestamp: new Date().toISOString(),
-//         });
-//     }
-// });
 
 app.get("/", (req, res) => {
     return successResponse(res, "Backend running successfully", {
