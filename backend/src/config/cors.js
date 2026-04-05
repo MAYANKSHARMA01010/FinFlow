@@ -1,18 +1,14 @@
 const cors = require("cors");
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === "production";
 
-const allowedOrigins = isProduction
-    ? [
-          process.env.FRONTEND_SERVER_URL,
-          // Fallback to local if server URL is not configured.
-          process.env.FRONTEND_LOCAL_URL,
-      ].filter(Boolean)
-    : [
-          process.env.FRONTEND_LOCAL_URL,
-          // Allow server URL in development when testing staging UI.
-          process.env.FRONTEND_SERVER_URL,
-      ].filter(Boolean);
+const allowedOrigins = isProd
+    ? [process.env.FRONTEND_SERVER_URL]
+    : [process.env.FRONTEND_LOCAL_URL];
+
+if (!allowedOrigins[0]) {
+    throw new Error("CORS origin is not defined");
+}
 
 const corsOptions = {
     origin: function (origin, callback) {

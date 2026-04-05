@@ -2,21 +2,18 @@
 
 import axios from "axios";
 
-const isServer = typeof window === "undefined";
-const isProduction = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === "production";
 
-const baseURL = isServer
-    ? isProduction
-        ? process.env.NEXT_SERVER_BACKEND_API_URL
-        : process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-          process.env.NEXT_SERVER_BACKEND_API_URL
-        : isProduction
-            ? process.env.NEXT_PUBLIC_BACKEND_API_URL_PROD ||
-                process.env.NEXT_PUBLIC_BACKEND_API_URL
-            : process.env.NEXT_PUBLIC_BACKEND_API_URL;
+const API_BASE = isProd
+    ? process.env.NEXT_PUBLIC_BACKEND_SERVER_URL
+    : process.env.NEXT_PUBLIC_BACKEND_LOCAL_URL;
+
+if (!API_BASE) {
+    throw new Error("API base URL is not defined");
+}
 
 const api = axios.create({
-    baseURL,
+    baseURL: API_BASE,
 });
 
 api.interceptors.request.use((config) => {
