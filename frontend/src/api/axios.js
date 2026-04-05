@@ -2,10 +2,18 @@
 
 import axios from "axios";
 
+const isServer = typeof window === "undefined";
+const isProduction = process.env.NODE_ENV === "production";
+
+const baseURL = isServer
+    ? isProduction
+        ? process.env.NEXT_SERVER_BACKEND_API_URL
+        : process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+          process.env.NEXT_SERVER_BACKEND_API_URL
+    : process.env.NEXT_PUBLIC_BACKEND_API_URL;
+
 const api = axios.create({
-    baseURL:
-        process.env.NEXT_PUBLIC_BACKEND_API_URL ||
-        process.env.NEXT_SERVER_BACKEND_API_URL,
+    baseURL,
 });
 
 api.interceptors.request.use((config) => {
