@@ -10,7 +10,10 @@ const baseURL = isServer
         ? process.env.NEXT_SERVER_BACKEND_API_URL
         : process.env.NEXT_PUBLIC_BACKEND_API_URL ||
           process.env.NEXT_SERVER_BACKEND_API_URL
-    : process.env.NEXT_PUBLIC_BACKEND_API_URL;
+        : isProduction
+            ? process.env.NEXT_PUBLIC_BACKEND_API_URL_PROD ||
+                process.env.NEXT_PUBLIC_BACKEND_API_URL
+            : process.env.NEXT_PUBLIC_BACKEND_API_URL;
 
 const api = axios.create({
     baseURL,
